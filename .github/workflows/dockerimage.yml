@@ -15,4 +15,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag my-image-name:$(date)
+
+
+- name: Cloud Run
+  uses: stefda/action-cloud-run@v1.0
+  with:
+    # Name of the docker image
+    image: my-image-name:$(date)
+    # Name of the service in Cloud Run
+    service: test-action
+    # GCP project
+    project: cloudware
+    # GCP region
+    region: europe-west1
+    # GCP service key with storage and run permissions
+    service key: bff6fc4e924205a9d56497e376532bf0f3009f29
